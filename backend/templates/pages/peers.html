@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<h1 class="h3 text-gray-800">Network peers</h1>
+
+			<div class="mb-3">
+				<div class="table-responsive">
+					<table class="mb-0">
+						<thead>
+							<tr>
+								<th scope="col">Address</th>
+								<th scope="col">Version</th>
+								<th scope="col">Country</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for peer in peers %}
+								<tr>
+									<td>
+										{{ peer.address }}
+									</td>
+									<td>
+										{{ peer.subver }}
+									</td>
+									<td>
+										{% if peer.location %}
+											{{ peer.location.country }} <img src="https://www.countryflags.io/{{ peer.location.code }}/flat/16.png">
+										{% else %}
+											Unknown
+										{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

@@ -1,0 +1,55 @@
+<div id="stats">
+	<iframe width="1200" height="60" src="https://rss.app/embed/v1/ticker/GWztacftJvbuRNW1" frameborder="0"></iframe>
+
+	<div class="row mb-2">
+		<div class="col-lg-4 col-md-12 d-flex">
+			<div class="card margin-mobile" style="width: 100%;">
+				<div class="card-body" style="display: flex;justify-content: center;align-items: center;">
+					<div>
+						<div>Height: <b>{{ stats.height }}</b></div>
+						<div>Masternodes: <b>{{ stats.masternodes }}</b></div>
+						<div>Unique addresses: <b>{{ stats.addresses }}</b></div>
+						<div>Non-reward transactions: <b>{{ stats.transactions }}</b></div>
+						<div>Total supply: <b>{{ stats.supply|amount }} RCI</b></div>
+						<div>Collateral: <b>{{ stats.collateral|amount }} RCI</b></div>
+						<div>Locked coins: <b>{{ stats.locked|amount }} RCI</b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-12 d-flex">
+			<div class="card margin-mobile" style="width: 100%;">
+				<div class="card-body" style="display: flex;justify-content: center;align-items: center;">
+       <head>
+	<script type="text/javascript" src="/static/img/bvscripts.js"></script>
+	<script type="text/javascript" src="/static/img/live_price_widget.js"></script>
+        </head>
+        <body>
+        <div id="banner1"></div>
+
+        <script type="text/javascript">
+                var options = {
+                        referrerID: "CHAPCHA",
+                        size: "250x250",
+                        bullion: "gold",
+                        currency: "USD",
+                        weightUnit: "TOZ"
+                };
+                new BullionVaultPriceWidget('banner1', options);
+        </script>
+
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-12">
+		<div class="card p-1"></br>
+		<rssapp-carousel id="GWztacftJvbuRNW1"></rssapp-carousel><script src="https://widget.rss.app/v1/carousel.js" type="text/javascript" async></script>
+	        <script>window.intergramId="524956733"</script>
+ 	        <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
+			</div>
+		</div>
+
+        </body>
+	</div>
+</div>

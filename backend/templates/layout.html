@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+		<script src=https://unpkg.com/lightweight-charts@3.3.0/dist/lightweight-charts.standalone.production.js></script>
+
+		<link rel="shortcut icon" href="/static/img/RCI.png" type="image/x-icon">
+		<title>{% if title %}{{ title }} | {% endif %}Raffah Coin Explorer</title>
+
+		<script src=https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js></script>
+
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script type="text/javascript">
+    aclib.runAutoTag({
+        zoneId: 'rq3r9i5hpp',
+    });
+</script>
+
+		<style type="text/css">
+			.nav-links a {
+				display: inline-block;
+				padding: 0 10px;
+			}
+			.pagination a {
+				display: inline-block;
+				padding: 0px 10px;
+			}
+			.container {
+				max-width: 1170px;
+			}
+			a.logo img {
+				max-width: 240px;
+			}
+
+			#sidebar a.nav-logo span {
+				font-size: 25px;
+				margin-left: 5px;
+			}
+			#sidebar a.nav-logo img {
+				width: 52px;
+				height: 52px;
+			}
+
+			#sidebar a img.icon {
+				height: 16px;
+				margin-right: 10px;
+			}
+
+			#burger, #close {
+				display: none;
+			}
+			#burger img, #close img {
+				width: 22px;
+				height: 22px;
+			}
+
+			td {
+				word-break: break-word;
+			}
+
+			.search-block {
+				align-items: center;
+				display: flex;
+			}
+			#search {
+				flex: 1;
+			}
+			#search .search-wrapper {
+				display: flex;
+				position: relative;
+			}
+			#search input {
+				width: 100%;
+			}
+			#search button {
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: transparent;
+				border: transparent;
+				padding: 0px 10px;
+				display: flex;
+				align-items: center;
+
+			}
+			#search button img {
+				width: 18px;
+				height: 18px;
+			}
+
+			.search-nav {
+				display: flex;
+				align-items: center;
+			}
+			.search-nav .logo {
+				margin-right: 15px;
+				display: none;
+			}
+			.search-nav .logo img {
+				height: 32px;
+			}
+
+			.card {
+				border-radius: 0px;
+			}
+			.fz-14 {
+				font-size: 14px;
+			}
+			.not-active {
+				pointer-events: none;
+				cursor: default;
+				text-decoration: none;
+				color: black;
+			}
+
+			#sidebar {
+				width: 240px;
+				background: black;
+				color: white;
+				display: flex;
+				flex-direction: column;
+				transition: all 0.2s;
+				padding: 6px 0px;
+				min-height: 100vh;
+				position: fixed;
+				z-index: 999;
+				bottom: 0;
+				left: 0;
+				top: 0;
+			}
+			#sidebar a {
+				display: flex;
+				align-items: center;
+				color: white;
+				text-decoration: none;
+				padding: 10px 25px;
+			}
+			#content {
+				margin-left: 240px; 
+			}
+			.reward-wrapper {
+				display: flex;
+				align-items: center;
+			}
+			.reward-icon {
+				height: 20px;
+				margin-left: 5px;
+			}
+
+			@media (max-width: 991px) {
+				#burger {
+					display: block;
+				}
+				#close {
+					display: block;
+					position: absolute;
+					top: 20px;
+					right: 20px;
+				}
+				#search button img {
+					background: white;
+				}
+				#burger {
+					margin-left: 15px;
+				}
+
+				#sidebar {
+					left: -240px;
+				}
+				#sidebar.visible {
+					left: 0;
+				}
+				#underline {
+					background: black;
+					position: fixed;
+					transition: all 0.2s;
+					z-index: -1;
+					opacity: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					top: 0;
+				}
+				#underline.visible {
+					display: block;
+					opacity: 0.5;
+					z-index: 888;
+				}
+				#content {
+					margin-left: 0px;
+				}
+				.search-nav .logo {
+					display: block;
+				}
+
+			}
+
+			table {
+			    width: 100%;
+			    border-collapse: separate;
+			    /*border-spacing: 0px 4px;*/
+			    border-spacing: 0px;
+			    font-size: 14px;
+			}
+			tr:nth-child(2n+1) {
+				background-color: rgba(0,0,0,.05);
+			}
+			td {
+			    padding: 8px 20px;
+			    word-break: break-word;
+			}
+
+			th {
+			    background-color: rgb(255, 255, 255);
+			    border-bottom: 1px solid rgb(238, 238, 238);
+			    text-align: left;
+			    padding: 6px 20px;
+			}
+			@media (max-width: 575px) {
+				thead {
+					display: none;
+				}
+				td {
+					display: table;
+					padding: 3px 20px;
+				}
+				td.non-mobile {
+					display: none;
+				}
+			}
+			#chart {
+				min-height: 300px;
+			}
+			#chart td {
+				display: table-cell;
+			}
+			.copy-button {
+				background: transparent;
+				border: none;
+			}
+			.copy-button img {
+				width: 16px;
+			}
+			.form-control {
+				border-radius: 0px;
+			}
+			@media (max-width: 991px) {
+				#stats .margin-mobile {
+					margin-bottom: 1rem!important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		{% include "elements/sidebar.html" %}
+
+		<div id="content">
+			<div class="container">
+				{% include "elements/search.html" %}
+
+				{% block content %}{% endblock %}
+			</div>
+
+			{% include "elements/footer.html" %}
+		</div>
+		<rssapp-ticker id="3Rl5Nx9Ql8YKLeKV"></rssapp-ticker><script src="https://widget.rss.app/v1/ticker.js" type="text/javascript" async></script>
+		<script type="text/javascript">
+			const timestamps = document.getElementsByClassName("local-time")
+			for(let i = 0; i < timestamps.length; i++) {
+				let timestamp = timestamps[i];
+
+				let date = new Date(timestamp.getAttribute("time") * 1000)
+				let local = moment(date).local().format("YYYY-MM-DD HH:mm:ss");
+
+				timestamp.textContent = local
+	        }
+		</script>
+	</body>
+</html>

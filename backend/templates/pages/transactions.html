@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<h1 class="h3 text-gray-800">Recent transactions</h1>
+
+			{% include "elements/chart/transactions.html" %}
+
+			<div class="mb-3">
+				<input type="checkbox" id="show-rewards" name="show-rewards" value="show">
+				<label for="show-rewards">Show reward transactions</label>
+
+				<script type="text/javascript">
+					function setCookie(cName, cValue, expDays) {
+						let date = new Date();
+						date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+						const expires = "expires=" + date.toUTCString();
+						document.cookie = cName + "=" + cValue + "; " + expires + "; path=/; SameSite=None; Secure";
+					}
+
+					function getCookie(cName) {
+						const name = cName + "=";
+						const cDecoded = decodeURIComponent(document.cookie); //to be careful
+						const cArr = cDecoded .split('; ');
+						let res;
+						cArr.forEach(val => {
+							if (val.indexOf(name) === 0) res = val.substring(name.length);
+						})
+						return res;
+					}
+
+					let show = document.getElementById("show-rewards")
+
+					if (getCookie("show-rewards") == undefined) {
+						setCookie("show-rewards", "false", 30)
+					} else if (getCookie("show-rewards") == "false") {
+						show.checked = false
+					} else {
+						show.checked = true
+					}
+
+					show.onclick = function() {
+						setCookie("show-rewards", show.checked, 30)
+						window.location.reload(false)
+					}
+				</script>
+			</div>
+
+			<div class="mb-3">
+				<div class="table-responsive">
+					<table class="mb-0">
+						<thead>
+							<tr>
+								<th scope="col">Height</th>
+								<th scope="col">Hash</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for transaction in transactions %}
+								<tr>
+									<td>
+										{{ transaction.block.height }}
+									</td>
+									<td>
+										<a href="{{ url_for('frontend.transaction', txid=transaction.txid) }}" class="font-monospace">
+											{{ transaction.txid }}
+										</a>
+									</td>
+									<td>
+										<div class="reward-wrapper">
+											<span>{{ transaction.amount|amount }} <b>RCI</b></span>
+											{% if transaction.coinbase or transaction.coinstake %}
+												<img class="reward-icon" src="/static/img/reward.svg">
+											{% endif %}
+										</div>
+									</td>
+									<td>
+										<span class="local-time" time="{{ transaction.block.created|timestamp }}"></span>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include "elements/pagination.html" %}
+{% endblock content %}

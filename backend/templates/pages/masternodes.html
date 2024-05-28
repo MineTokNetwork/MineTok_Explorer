@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<h1 class="h3 text-gray-800">Masternodes</h1>
+
+			{% include "elements/chart/masternodes.html" %}
+
+			<div class="mb-3">
+				<div class="table-responsive">
+					<table class="mb-0">
+						<thead>
+							<tr>
+								<th scope="col">Rank</th>
+								<th scope="col">Address</th>
+								<th scope="col">Status</th>
+								<th scope="col">Last paid</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for masternode in masternodes %}
+								<tr>
+									<td>
+										{{ masternode.rank }}
+									</td>
+									<td>
+										<a href="{{ url_for('frontend.address', address=masternode.address) }}" class="font-monospace">
+											{{ masternode.address }}
+										</a>
+									</td>
+									<td>
+										{{ masternode.status }}
+									</td>
+									<td>
+										<span class="local-time" time="{{ masternode.lastpaid|timestamp }}"></span>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include "elements/pagination.html" %}
+{% endblock content %}

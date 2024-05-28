@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% include "elements/stats.html" %}
+
+	<div class="row">
+		<div class="col-12">
+			<h1 class="h3 text-gray-800">Recent blocks</h1>
+
+			<div class="mb-3">
+				<div class="table-responsive">
+					<table id="blocks-table" class="mb-0">
+						<thead>
+							<tr>
+								<th scope="col">Height</th>
+								<th scope="col">Hash</th>
+								<th scope="col">Transactions</th>
+								<th scope="col">Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for block in blocks %}
+								<tr data-height="{{ block.height }}">
+									<td>
+										{{ block.height }}
+									</td>
+									<td>
+										<a href="{{ url_for('frontend.block', blockhash=block.blockhash) }}" class="font-monospace">
+											{{ block.blockhash }}
+										</a>
+									</td>
+									<td class="non-mobile">
+										{{ block.txcount }}
+									</td>
+									<td>
+										<span class="local-time" time="{{ block.created|timestamp }}"></span>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include "elements/pagination.html" %}
+
+	<script type="text/javascript">
+		// Redirect from old explorer
+		let urlParams = window.location.hash.split("/")
+
+		if (urlParams.length >= 2 && urlParams[0] == "#") {
+			if (urlParams[1] == "block") {window.location.replace("/block/" + urlParams[2])}
+			if (urlParams[1] == "tx") {window.location.replace("/transaction/" + urlParams[2])}
+			if (urlParams[1] == "address") {window.location.replace("/address/" + urlParams[2])}
+			if (urlParams[1] == "movement") {window.location.replace("/transactions")}
+			if (urlParams[1] == "masternode") {window.location.replace("/masternodes")}
+			if (urlParams[1] == "top") {window.location.replace("/holders")}
+			if (urlParams[1] == "peer") {window.location.replace("/network")}
+			if (urlParams[1] == "api") {window.location.replace("/api")}
+		}
+	</script>
+{% endblock content %}
