@@ -7,7 +7,7 @@ CURRENCY = "RCI"
 DECIMALS = 8
 
 # Mainnet
-P2PKH_VERBYTE = bytes.fromhex("7A")
+P2PKH_VERBYTE = bytes.fromhex("6E")
 P2SH_VERBYTES = bytes.fromhex("6E")
 
 # Regtest
