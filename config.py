@@ -10,6 +10,6 @@ port = 4321
 
 db_params = {
     "provider": "sqlite",
-    "filename": "/home/soradev/pyex/rci.db",
+    "filename": "/home/soradev/pyex/mtk.db",
     "create_db": True
 }
